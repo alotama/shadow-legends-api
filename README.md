@@ -8,6 +8,7 @@ The idea is to make a website where you can compare stats between two or more ch
 - Node.js
 - Express
 - MongoDB
+- GraphQL
 
 ## To Do
 

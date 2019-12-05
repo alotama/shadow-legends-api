@@ -23,7 +23,7 @@ app.listen(PORT, function() {
 const schemas = buildSchema(`
 	type Query {
 		champion(name: String!): Champion
-		allChampion: [Champion]
+		allChampion(name: [String!]):[Champion]
 	}
 	type Champion {
 		name: String!
@@ -45,8 +45,17 @@ const getChampion = (query) => {
 	})
 }
 
-const getAllChampions = () => {
-	return Champion.find(null, function (err, docs) {
+const getAllChampions = (query) => {
+
+	var queryName = query.name && query.name.map(champion => {
+		var obj = { name: "" };
+		obj.name = champion;
+		return obj;
+	});
+	
+	let filter = queryName ? { $or: queryName } : null
+
+	return Champion.find(filter, function (err, docs) {
 		if (err) return err;
 		const valueKey = myCache.get("allChampions");
 		if (valueKey) {
