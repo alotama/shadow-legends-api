@@ -12,13 +12,15 @@ const PORT = process.env.PORT || 5000
 const graphqlHTTP = require('express-graphql')
 const { buildSchema } = require('graphql')
 
+var server = app.listen(PORT, function () {
+	var host = server.address().address;
+	var port = server.address().port;
+	console.log('running at http://' + host + ':' + port)
+});
+
 app.use(bodyParser.json());
 
 app.use(compression());
-
-app.listen(PORT, function() {
-	console.log(`Example app is in http://localhost:${PORT}!`);
-});
 
 const schemas = buildSchema(`
 	type Query {
