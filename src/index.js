@@ -49,7 +49,7 @@ const schemas = buildSchema(`
 
 app.get('/', (req, res) => res.send('Hello World with Express'));
 
-mongoose.connect(mongoUrl, { useNewUrlParser: true });
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 
 !db ? console.log("Error connecting db") : console.log("Db connected successfully");
