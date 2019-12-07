@@ -57,7 +57,9 @@ var db = mongoose.connection;
 !db ? console.log("Error connecting db") : console.log("Db connected successfully");
 
 const getChampion = (query) => {
+	console.log('getChampion Query ->', query)
 	return Champion.findOne({ name: query.name }, function (err, response) {
+		console.log('getChampion findOne ->', response)
 		if(err) return err
 		db.close()
 		return response;
@@ -65,7 +67,7 @@ const getChampion = (query) => {
 }
 
 const getAllChampions = (query) => {
-
+	console.log('getAllChampions Query ->', query)
 	var queryName = query.name && query.name.map(champion => {
 		var obj = { name: "" };
 		obj.name = champion;
@@ -75,6 +77,7 @@ const getAllChampions = (query) => {
 	let filter = queryName ? { $or: queryName } : null
 
 	return Champion.find(filter, function (err, docs) {
+		console.log('getAllChampions Find ->', docs)
 		if (err) return err;
 		const valueKey = myCache.get("allChampions");			
 		if (valueKey) {
