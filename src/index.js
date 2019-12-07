@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(compression());
 
 app.listen(PORT, function() {
-	console.log(`Example app listening on port ${PORT}!`);
+	console.log(`Example app is in http://localhost:${PORT}!`);
 });
 
 const schemas = buildSchema(`
@@ -26,7 +26,16 @@ const schemas = buildSchema(`
 		allChampion(name: [String!]):[Champion]
 	}
 	type Champion {
+		id: ID!
 		name: String!
+		rarity: String
+		faction: String
+		rating: Int
+		type: String
+		element: String
+		stats: Stats!
+	}
+	type Stats {
 		health: Int!
 		attack: Int!
 		defense: Int!
@@ -38,9 +47,17 @@ const schemas = buildSchema(`
 	}
 `)
 
+app.get('/', (req, res) => res.send('Hello World with Express'));
+
+mongoose.connect(mongoUrl, { useNewUrlParser: true });
+var db = mongoose.connection;
+
+!db ? console.log("Error connecting db") : console.log("Db connected successfully");
+
 const getChampion = (query) => {
 	return Champion.findOne({ name: query.name }, function (err, response) {
 		if(err) return err
+		db.close()
 		return response;
 	})
 }
@@ -57,14 +74,18 @@ const getAllChampions = (query) => {
 
 	return Champion.find(filter, function (err, docs) {
 		if (err) return err;
-		const valueKey = myCache.get("allChampions");
+		const valueKey = myCache.get("allChampions");			
 		if (valueKey) {
 			const championCache = myCache.get("allChampions");
+
+			db.close()
 			return championCache
 		} else {
 			myCache.set("allChampions", docs, 10000);
+
+			db.close()
 			return docs
-		}		
+		}
 	})	
 }
 
@@ -78,10 +99,3 @@ app.use('/graphql', graphqlHTTP({
 	rootValue: root,
 	graphiql: true
 }))
-
-app.get('/', (req, res) => res.send('Hello World with Express'));
-
-mongoose.connect(mongoUrl, { useNewUrlParser: true });
-var db = mongoose.connection;
-
-!db ? console.log("Error connecting db") : console.log("Db connected successfully");

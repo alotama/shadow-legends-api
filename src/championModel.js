@@ -3,13 +3,26 @@ var Schema = mongoose.Schema;
 
 // Setup schema
 var championSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
+  name: {
+    type: String,
+    required: true
+  },
+  rarity: {
+    type: String,
+  },
+  faction: {
+    type: String,
+  },
+  type: {
+    type: String,
+  },
+  element: {
+    type: String,
+  },
+  stats: {
     health: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     attack: {
       type: String,
@@ -39,6 +52,7 @@ var championSchema = new Schema({
       type: String,
       required: true
     },
+  }
 });
 
 // Export Contact model
