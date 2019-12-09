@@ -2,11 +2,11 @@
   "name": "raid-shadow-legends-api",
   "version": "0.0.0",
   "description": "Little project to scrapping data from raid shadow legend blogs",
-  "main": "./src/index.js",
+  "main": "./server.js",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
+    "dev": "nodemon --exec 'node -r dotenv/config server.js'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "rm -rf dist && webpack"
   },
   "keywords": [
     "node",
