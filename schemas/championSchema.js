@@ -10,7 +10,6 @@ module.exports = buildSchema(`
 		name: String!
 		rarity: String
 		faction: String
-		rating: Int
 		type: String
 		element: String
 		stats: Stats!

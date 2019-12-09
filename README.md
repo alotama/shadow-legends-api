@@ -12,13 +12,11 @@ The idea is to make a website where you can compare stats between two or more ch
 
 ## To Do
 
-- Organize files with MVC Arquitecture
-- Scrap all information about Champion
-  - Rarity
-  - Faction
-  - Overall Rating
-  - Type
-  - Element
+- [X] Organize files with MVC Arquitecture
+- [X] Scrap more information about Champion
+- [ ] Get all champions according to their element, rarity AND/OR faction.
+- [ ] Include champion information
   - Skills
+  - Overall Rating
   - Masteries
   - Ratings
